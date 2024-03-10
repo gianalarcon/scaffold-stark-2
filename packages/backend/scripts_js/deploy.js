@@ -15,12 +15,17 @@ const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const network = process.argv[2] || "sepolia"; // Get the network name from the command line, default to "sepolia"
+
+const providerUrl = network === "goerli" ? process.env.RPC_URL_GOERLI : process.env.RPC_URL_SEPOLIA;
+const privateKey = network === "goerli" ? process.env.PRIVATE_KEY_0 : process.env.ACCOUNT_SEPOLIA_PRIVATE_KEY;
+const accountAddress = network === "goerli" ? process.env.ACCOUNT_0_ADDRESS : process.env.ACCOUNT_SEPOLIA;
+
 const provider = new RpcProvider({
-  nodeUrl: process.env.RPC_URL,
+  nodeUrl: providerUrl,
 });
-const privateKey0 = process.env.PRIVATE_KEY_0;
-const account0Address = process.env.ACCOUNT_0_ADDRESS;
-const account0 = new Account(provider, account0Address, privateKey0, 1);
+
+const account0 = new Account(provider, accountAddress, privateKey, 1);
 
 const deployContract = async (contractName) => {
   const compiledContractCasm = JSON.parse(

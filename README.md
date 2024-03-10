@@ -23,7 +23,10 @@ chmod +x install-scarb.sh
 ./install-scarb.sh
 ```
 
-3. Deploy the sample contract:
+3. Go to `packages/backend/env.example` and check the environment variavles. Create an `.env` file in the same directory based on the `.env.example` file. This is a sensitive step since you have to pass your private key. If you want to replace the `rpc_url` variable, make sure its specs is 0.5.1
+   compatible
+
+4. Deploy the sample contract:
 
 ```bash
 yarn goerli-deploy
@@ -31,7 +34,7 @@ yarn goerli-deploy
 
 This command deploys a sample smart contract to the local network. The `contract` is located in `packages/backend/src` and can be modified to suit your needs. The `yarn goerli-deploy` command uses the deploy script located in `packages/backend/scripts_js/deploy` to deploy the contract to the network. You can also customize the deploy script.
 
-4. On a second terminal, start your NextJS app:
+5. On a second terminal, start your NextJS app:
 
 ```bash
 yarn start

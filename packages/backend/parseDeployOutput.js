@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Assuming the output is stored in 'deployOutput.txt'
-const outputFilePath = path.join(__dirname, 'generated/deployOutput.txt');
+const outputFilePath = path.join(__dirname, 'artifacts/deployOutput.txt');
 const output = fs.readFileSync(outputFilePath, 'utf8');
 
 // Regex to match the deployed contract address and class hash
@@ -34,7 +34,7 @@ if (addressMatch && classHashMatch) {
   };
 
   // Write the result object to result.json
-  const resultFilePath = path.join(__dirname, 'generated/result.json');
+  const resultFilePath = path.join(__dirname, 'artifacts/result.json');
   fs.writeFileSync(resultFilePath, JSON.stringify(result, null, 2));
   console.log(`Result written to ${resultFilePath}`);
 

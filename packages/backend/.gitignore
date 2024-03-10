@@ -1,4 +1,4 @@
 target
 .snfoundry_cache/
 .env
-generated
+artifacts/*

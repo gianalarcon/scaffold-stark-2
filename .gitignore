@@ -5,4 +5,5 @@ starknet-devnet-rs
 package-lock.json
 .yarnrc.yml
 yarn-error.log
-packages/nextjs/src/contracts/result.json
+/packages/backend/generated/*
+/packages/nextjs/src/contracts/*

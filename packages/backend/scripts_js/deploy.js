@@ -83,6 +83,7 @@ const deployScript = async () => {
   console.log("HelloStarknet Class Hash", helloStarknetClassHash);
   console.log("HelloStarknet ABI", helloStarknetAbi);
   console.log("HelloStarknet Address", ContractAddress);
+  console.log("Network", network);
 };
 
 deployScript()

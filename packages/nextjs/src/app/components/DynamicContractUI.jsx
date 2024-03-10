@@ -113,14 +113,34 @@ const ContractPlayground = ({ contractDefinition }) => {
         <h2 className="text-2xl font-bold ba card-title">Contract Playground</h2>
       </div>
 
+      {/* Contract and network info */}
+         {/* Contract and network info */}
+    <div className="bg-gray-100 p-4 rounded-lg mb-4">
+      <p className="mb-2">
+        Contract Address:{' '}
+        <a
+          href={`https://${contractDefinition.network}.voyager.online/contract/${
+            contractDefinition.address.startsWith('0x0')
+              ? contractDefinition.address
+              : '0x0' + contractDefinition.address.slice(2)
+          }`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:underline"
+        >
+          {contractDefinition.address}
+        </a>
+      </p>
+      <p className="mb-2">Network: {contractDefinition.network}</p>
       <p>
-        Connected to wallet:{" "}
+        Connected to wallet:{' '}
         {userContext.address
           ? `${userContext.address.substring(0, 4)}...${userContext.address.substring(
               userContext.address.length - 4
             )}`
-          : "Not connected"}
+          : 'Not connected'}
       </p>
+    </div>
       {contractDefinition.abi
         .filter((item) => item.type === "interface")
         .flatMap((interfaceItem) => interfaceItem.items)

@@ -8,12 +8,15 @@ const output = fs.readFileSync(outputFilePath, 'utf8');
 // Regex to match the deployed contract address and class hash
 const addressRegex = /Address (0x[0-9a-fA-F]+)/;
 const classHashRegex = /Class Hash (0x[0-9a-fA-F]+)/;
+const networkRegex = /Network (\w+)/;
 const addressMatch = output.match(addressRegex);
 const classHashMatch = output.match(classHashRegex);
+const networkMatch = output.match(networkRegex);
 
 if (addressMatch && classHashMatch) {
   const address = addressMatch[1];
   const classHash = classHashMatch[1];
+  const network = networkMatch[1]
 
   // Extract the ABI directly from deployOutput.txt
   const abiRegex = /ABI (\[[\s\S]*\])/;
@@ -30,6 +33,7 @@ if (addressMatch && classHashMatch) {
   const result = {
     address: address,
     classHash: classHash,
+    network: network,
     abi: abi
   };
 

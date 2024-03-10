@@ -1,6 +1,7 @@
 {
   "address": "0x5a43949347bc3b98d10b0f62ebca782343b1f0c1ec8c44d993e123a7b23e427",
   "classHash": "0xb080ac08a554ec3f3f7dcfabe1b9d9cc10ef26d75e80c0a773f164a4956060",
+  "network": "goerli",
   "abi": [
     {
       "type": "impl",

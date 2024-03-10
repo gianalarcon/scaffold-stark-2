@@ -4,3 +4,4 @@ starknet-devnet-rs
 .yarn
 package-lock.json
 .yarnrc.yml
+yarn-error.log

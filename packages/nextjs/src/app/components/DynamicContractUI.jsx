@@ -7,19 +7,23 @@ import { Button, TextField } from "@radix-ui/themes";
 import { useUser } from "@/contexts/userContenxt";
 import { constants, RpcProvider } from "starknet";
 import { Reload } from "@radix-ui/themes";
+import { WalletState } from "./WalletState";
+const networkChainIds = [
+  { network: 'mainnet', chainId: '0x534e5f4d41494e' },
+  { network: 'goerli', chainId: '0x534e5f474f45524c49' },
+  { network: 'sepolia', chainId: '0x534e5f5345504f4c4941' },
+];
 
-const provider = new RpcProvider({
-  nodeUrl:
-    "https://starknet-goerli.infura.io/v3/c45bd0ce3e584ba4a5e6a5928c9c0b0f",
-  chainId: constants.StarknetChainId.SN_GOERLI,
-});
 const ContractPlayground = ({ contractDefinition }) => {
   const [inputValues, setInputValues] = useState({});
-
+  const [provider, setProvider] = useState(null);
   const [contractInstance, setContractInstance] = useState(null);
   const [lastConsultResponse, setLastConsultResponse] = useState(null);
+  
   const userContext = useUser();
 
+  
+  
   const handleInputChange = (functionName, inputName, value) => {
     setInputValues((prevValues) => ({
       ...prevValues,
@@ -32,6 +36,18 @@ const ContractPlayground = ({ contractDefinition }) => {
   };
 
   useEffect(() => {
+    if (contractDefinition.rpc_endpoint) {
+      console.log("Contract address:", contractDefinition.address);
+      let tempProvider = new RpcProvider({
+        nodeUrl: contractDefinition.rpc_endpoint,
+        //chainId: constants.StarknetChainId.SN_GOERLI,
+      });
+      console.log("Provider set with the following endpoint:", contractDefinition.rpc_endpoint);
+      setProvider(tempProvider);
+    }
+  }, [contractDefinition]);
+
+  useEffect(() => {
     if (userContext.account) {
       console.log("Contract address:", contractDefinition.address);
       let contractInstance = new Contract(
@@ -39,6 +55,10 @@ const ContractPlayground = ({ contractDefinition }) => {
         contractDefinition.address,
         userContext.account
       );
+       // Get the raw chainId
+    userContext.account.provider.getChainId().then((chainId) => {
+      console.log("Raw ChainId:", chainId);
+    });
       setContractInstance(contractInstance);
     }
   }, [userContext.isLoggedIn, contractDefinition]);
@@ -120,38 +140,61 @@ const ContractPlayground = ({ contractDefinition }) => {
       </div>
 
       {/* Contract and network info */}
-      {/* Contract and network info */}
-      <div className="bg-gray-100 p-4 rounded-lg mb-4">
-        <p className="mb-2">
-          Contract Address:{" "}
-          <a
-            href={`https://${
-              contractDefinition.network
-            }.voyager.online/contract/${
-              contractDefinition.address.startsWith("0x0")
-                ? contractDefinition.address
-                : "0x0" + contractDefinition.address.slice(2)
+         {/* Contract and network info */}
+    <div className="bg-gray-100 p-4 rounded-lg mb-4">
+      <p className="mb-2">
+        Contract Address:{' '}
+        <a
+          href={`https://${contractDefinition.network}.voyager.online/contract/${
+            contractDefinition.address.startsWith('0x0')
+              ? contractDefinition.address
+              : '0x0' + contractDefinition.address.slice(2)
+          }`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:underline"
+        >
+          {contractDefinition.address}
+        </a>
+      </p>
+      <p className="mb-2">Network: {contractDefinition.network}</p>
+      <p>
+        Connected to wallet:{' '}
+        {userContext.address
+          ? `${userContext.address.substring(0, 4)}...${userContext.address.substring(
+              userContext.address.length - 4
+            )}`
+          : 'Not connected'}
+        {userContext.account && (
+          <>
+          <span
+            className={`inline-block w-2 h-2 rounded-full ml-2 ${
+              networkChainIds.find(
+                (item) => item.network === contractDefinition.network
+              )?.chainId === userContext.account
+                ? 'bg-green-500'
+                : 'bg-red-500'
             }`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:underline"
-          >
-            {contractDefinition.address}
-          </a>
-        </p>
-        <p className="mb-2">Network: {contractDefinition.network}</p>
-        <p>
-          Connected to wallet:{" "}
-          {userContext.address
-            ? `${userContext.address.substring(
-                0,
-                4
-              )}...${userContext.address.substring(
-                userContext.address.length - 4
-              )}`
-            : "Not connected"}
-        </p>
-      </div>
+          />
+          <div>
+            {
+              networkChainIds.find(
+                (item) => item.network === contractDefinition.network
+              )?.chainId
+            }
+          </div>
+         
+          {/*
+          <WalletState
+        account={userContext.account}
+        contractsChainId={networkChainIds.find(
+          (item) => item.network === contractDefinition.network
+        )?.chainId}></WalletState>
+          */}
+          </>
+        )}
+      </p>
+    </div>
       {contractDefinition.abi
         .filter((item) => item.type === "interface")
         .flatMap((interfaceItem) => interfaceItem.items)

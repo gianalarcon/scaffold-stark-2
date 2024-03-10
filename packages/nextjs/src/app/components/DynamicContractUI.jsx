@@ -17,12 +17,13 @@ const networkChainIds = [
 const ContractPlayground = ({ contractDefinition }) => {
   const [inputValues, setInputValues] = useState({});
   const [provider, setProvider] = useState(null);
+  const [walletsChainId, setWalletsChainId] = useState(null);
   const [contractInstance, setContractInstance] = useState(null);
   const [lastConsultResponse, setLastConsultResponse] = useState(null);
   
   const userContext = useUser();
 
-  
+
   
   const handleInputChange = (functionName, inputName, value) => {
     setInputValues((prevValues) => ({
@@ -55,13 +56,19 @@ const ContractPlayground = ({ contractDefinition }) => {
         contractDefinition.address,
         userContext.account
       );
-       // Get the raw chainId
-    userContext.account.provider.getChainId().then((chainId) => {
-      console.log("Raw ChainId:", chainId);
-    });
+      setWalletChain();
       setContractInstance(contractInstance);
     }
-  }, [userContext.isLoggedIn, contractDefinition]);
+  }, [userContext.isLoggedIn, contractDefinition, userContext.account]);
+
+
+
+    {/* Async function to set the walletsChainId: userContext.account.getChainId() */}
+    async function setWalletChain() {
+      const chainId = await userContext.account.getChainId();
+      console.log("Wallets ChainId:", chainId);
+      setWalletsChainId(chainId);
+    }
 
   const handleFunctionCall = async (functionName) => {
     if (!contractInstance) {
@@ -70,6 +77,7 @@ const ContractPlayground = ({ contractDefinition }) => {
       );
       return;
     }
+
 
     console.log("Calling function:", functionName);
 
@@ -155,7 +163,7 @@ const ContractPlayground = ({ contractDefinition }) => {
           {contractDefinition.address}
         </a>
       </p>
-      <p className="mb-2">Network: {contractDefinition.network}</p>
+      <p className="mb-2">Starknet Network: {contractDefinition.network}</p>
       <p>
         Connected to wallet:{' '}
         {userContext.address
@@ -169,7 +177,7 @@ const ContractPlayground = ({ contractDefinition }) => {
             className={`inline-block w-2 h-2 rounded-full ml-2 ${
               networkChainIds.find(
                 (item) => item.network === contractDefinition.network
-              )?.chainId === userContext.account
+              )?.chainId === walletsChainId
                 ? 'bg-green-500'
                 : 'bg-red-500'
             }`}

@@ -1,8 +1,8 @@
 {
-  "address": "0x392fa364bbb1004f3fa917de93ed5c4d2e0f8e8432376e0cdac2e903e1d257b",
+  "address": "0x72bb6e0fc8a92e666990014089524dfd8b6861e94d36d0c74744add537c3dac",
   "classHash": "0x7a54fda6f156b365b8e4ef6dee9d67a21035ec3db87681b7dbf0e50c87a8e71",
-  "network": "goerli",
-  "rpc_endpoint": "https://starknet-goerli.infura.io/v3/c45bd0ce3e584ba4a5e6a5928c9c0b0f",
+  "network": "sepolia",
+  "rpc_endpoint": "https://starknet-sepolia.infura.io/v3/47279f22f9954d6facd977b57c932b6a",
   "abi": [
     {
       "type": "impl",

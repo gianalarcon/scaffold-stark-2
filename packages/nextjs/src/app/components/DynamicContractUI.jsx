@@ -134,9 +134,7 @@ const ContractPlayground = ({ contractDefinition }) => {
   return (
     <div className="card w-96 bg-base-100 shadow-xl text-justify-center ">
       <div className="flex row">
-        <h2 className="text-2xl font-bold ba card-title">
-          Contract Playground
-        </h2>
+        <h2 className="text-2xl font-bold ba card-title inear-gradient(rgb(136, 108, 241) 55.41%, rgb(67, 41, 166) 100%) padding-box text">Contract Playground</h2>
       </div>
 
       {/* Contract and network info */}

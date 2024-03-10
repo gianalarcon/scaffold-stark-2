@@ -9,14 +9,17 @@ const output = fs.readFileSync(outputFilePath, 'utf8');
 const addressRegex = /Address (0x[0-9a-fA-F]+)/;
 const classHashRegex = /Class Hash (0x[0-9a-fA-F]+)/;
 const networkRegex = /Network (\w+)/;
+const rpc_endpointRegex = /RPC_ENDPOINT (.+)/;
 const addressMatch = output.match(addressRegex);
 const classHashMatch = output.match(classHashRegex);
 const networkMatch = output.match(networkRegex);
+const rpc_endpointMatch = output.match(rpc_endpointRegex);
 
 if (addressMatch && classHashMatch) {
   const address = addressMatch[1];
   const classHash = classHashMatch[1];
   const network = networkMatch[1]
+  const rpc_endpoint = rpc_endpointMatch[1]
 
   // Extract the ABI directly from deployOutput.txt
   const abiRegex = /ABI (\[[\s\S]*\])/;
@@ -34,9 +37,10 @@ if (addressMatch && classHashMatch) {
     address: address,
     classHash: classHash,
     network: network,
+    rpc_endpoint: rpc_endpoint,
     abi: abi
   };
-
+  console.log('Deployed contract address:', address);
   // Write the result object to result.json
   const resultFilePath = path.join(__dirname, 'artifacts/result.json');
   fs.writeFileSync(resultFilePath, JSON.stringify(result, null, 2));

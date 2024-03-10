@@ -21,6 +21,7 @@ const providerUrl = network === "goerli" ? process.env.RPC_URL_GOERLI : process.
 const privateKey = network === "goerli" ? process.env.PRIVATE_KEY_0 : process.env.ACCOUNT_SEPOLIA_PRIVATE_KEY;
 const accountAddress = network === "goerli" ? process.env.ACCOUNT_0_ADDRESS : process.env.ACCOUNT_SEPOLIA;
 
+
 const provider = new RpcProvider({
   nodeUrl: providerUrl,
 });
@@ -84,6 +85,7 @@ const deployScript = async () => {
   console.log("HelloStarknet ABI", helloStarknetAbi);
   console.log("HelloStarknet Address", ContractAddress);
   console.log("Network", network);
+  console.log("RPC_ENDPOINT", providerUrl);
 };
 
 deployScript()

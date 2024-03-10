@@ -1,4 +1,49 @@
-# Goerli Demo
+# Sepolia Network
+
+We are going to follow the below instructions in order to intract with Starknet using Sepolia network
+
+## Prerequisites
+
+- Install Argent or Braavos wallet
+
+## Quickstart
+
+To get started with Scaffold-Stark 2, follow the steps below:
+
+1. Clone this repo & install dependencies
+
+```
+git clone https://github.com/Quantum3-Labs/scaffold-stark-2 --recurse-submodules
+cd scaffold-stark-2
+yarn install
+```
+
+2. Install `Scarb`, a package manager to build/compile Cairo language. Version 2.5.4
+
+```bash
+chmod +x install-scarb.sh
+./install-scarb.sh
+```
+
+3. Go to `packages/backend/env.example` and check the environment variables. Create an `.env` file in the same directory based on the `.env.example` file. This is a sensitive step since you have to pass your private key. If you want to replace the `RPC_URL_SEPOLIA` variable, make sure its specs is `0.5.1` version and it is `Sepolia` compatible.
+
+4. Deploy the sample contract:
+
+```bash
+yarn deploy
+```
+
+This command deploys a sample smart contract to the local network. The `contract` is located in `packages/backend/src` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/backend/scripts_js/deploy` to deploy the contract to the network. You can also customize the deploy script.
+
+5. On a second terminal, start your NextJS app:
+
+```bash
+yarn start
+```
+
+Visit your app on: `http://localhost:3000`.
+
+# Goerli Network
 
 ## Prerequisites
 
@@ -42,7 +87,7 @@ yarn start
 
 Visit your app on: `http://localhost:3000`.
 
-# Devnet demo (deprecated)
+# Devnet demo (Deprecated)
 
 ## Compatible versions
 

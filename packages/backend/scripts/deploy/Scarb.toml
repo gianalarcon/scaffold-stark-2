@@ -8,7 +8,7 @@ edition = "2023_11"
 [dependencies]
 sncast_std = { git = "https://github.com/foundry-rs/starknet-foundry", tag = "v0.19.0" }
 starknet = "2.5.4"
-contracts = { path = "../../../snfoundry" }
+contracts = { path = "../../../backend" }
 
 [lib]
 sierra = true
@@ -17,6 +17,4 @@ casm = true
 [[target.starknet-contract]]
 sierra = true
 casm = true
-build-external-contracts = [
-    "contracts::HelloStarknet"
-]
+build-external-contracts = ["contracts::HelloStarknet"]

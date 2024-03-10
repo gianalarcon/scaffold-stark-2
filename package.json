@@ -5,14 +5,15 @@
     "private": true,
     "workspaces": {
         "packages": [
-            "packages/snfoundry",
+            "packages/backend",
             "packages/nextjs"
         ]
     },
     "scripts": {
-        "chain": "yarn workspace @ss-2/snfoundry chain",
+        "chain": "yarn workspace @ss-2/backend chain",
         "cargo-chain": "chmod +x ./cargo-devnet.sh && ./cargo-devnet.sh",
-        "deploy": "yarn workspace @ss-2/snfoundry deploy",
+        "deploy": "yarn workspace @ss-2/backend deploy",
+        "devnet-deploy": "yarn workspace @ss-2/backend devnet-deploy",
         "start": "yarn workspace @ss-2/nextjs dev"
     },
     "packageManager": "yarn@3.2.3",

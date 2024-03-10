@@ -29,7 +29,7 @@ chmod +x install-scarb.sh
 yarn deploy
 ```
 
-This command deploys a sample smart contract to the local network. The contract is located in `packages/snfoundry/src` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/snfoundry/scripts/deploy` to deploy the contract to the network. You can also customize the deploy script.
+This command deploys a sample smart contract to the local network. The contract is located in `packages/backend/src` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/backend/scripts/deploy` to deploy the contract to the network. You can also customize the deploy script.
 
 4. On a second terminal, start your NextJS app:
 
@@ -96,7 +96,7 @@ This command starts a local Starknet network using Devnet. The network runs on y
 yarn devnet-deploy
 ```
 
-This command deploys a test smart contract to the local network. The contract is located in `packages/snfoundry/src` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/snfoundry/scripts/deploy` to deploy the contract to the network. You can also customize the deploy script.
+This command deploys a test smart contract to the local network. The contract is located in `packages/backend/src` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/backend/scripts/deploy` to deploy the contract to the network. You can also customize the deploy script.
 
 4. On a third terminal, start your NextJS app:
 

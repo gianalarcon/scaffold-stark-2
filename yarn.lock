@@ -1613,6 +1613,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ss-2/backend@workspace:packages/backend":
+  version: 0.0.0-use.local
+  resolution: "@ss-2/backend@workspace:packages/backend"
+  dependencies:
+    "@types/prettier": ^2
+    dotenv: ^16.3.1
+    envfile: ^6.18.0
+    prettier: ^2.8.8
+    starknet: 5.24.3
+    toml: ^3.0.0
+  languageName: unknown
+  linkType: soft
+
 "@ss-2/nextjs@workspace:packages/nextjs":
   version: 0.0.0-use.local
   resolution: "@ss-2/nextjs@workspace:packages/nextjs"
@@ -1637,19 +1650,6 @@ __metadata:
     starknetkit: 1.1.4
     tailwindcss: ^3.3.0
     typescript: ^5
-  languageName: unknown
-  linkType: soft
-
-"@ss-2/snfoundry@workspace:packages/snfoundry":
-  version: 0.0.0-use.local
-  resolution: "@ss-2/snfoundry@workspace:packages/snfoundry"
-  dependencies:
-    "@types/prettier": ^2
-    dotenv: ^16.3.1
-    envfile: ^6.18.0
-    prettier: ^2.8.8
-    starknet: 5.24.3
-    toml: ^3.0.0
   languageName: unknown
   linkType: soft
 

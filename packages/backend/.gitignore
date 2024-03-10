@@ -1,4 +1,5 @@
 target
 .snfoundry_cache/
 .env
-artifacts/*
+artifacts/deployOutput.txt
+artifacts/result.json

@@ -15,8 +15,9 @@ const provider = new RpcProvider({
 });
 const ContractPlayground = ({ contractDefinition }) => {
   const [inputValues, setInputValues] = useState({});
- 
+
   const [contractInstance, setContractInstance] = useState(null);
+  const [lastConsultResponse, setLastConsultResponse] = useState(null);
   const userContext = useUser();
 
   const handleInputChange = (functionName, inputName, value) => {
@@ -77,6 +78,10 @@ const ContractPlayground = ({ contractDefinition }) => {
         const result = await contractInstance[functionName](
           ...Object.values(functionInputs)
         );
+        setLastConsultResponse({
+          functionName,
+          result,
+        });
         console.log(`Result of ${functionName}:`, result);
       } catch (error) {
         console.error(`Error calling ${functionName}:`, error);
@@ -107,50 +112,66 @@ const ContractPlayground = ({ contractDefinition }) => {
   };
 
   return (
-        <div className="card w-96 bg-base-100 shadow-xl text-justify-center ">
-
+    <div className="card w-96 bg-base-100 shadow-xl text-justify-center ">
       <div className="flex row">
-        <h2 className="text-2xl font-bold ba card-title">Contract Playground</h2>
+        <h2 className="text-2xl font-bold ba card-title">
+          Contract Playground
+        </h2>
       </div>
 
       {/* Contract and network info */}
-         {/* Contract and network info */}
-    <div className="bg-gray-100 p-4 rounded-lg mb-4">
-      <p className="mb-2">
-        Contract Address:{' '}
-        <a
-          href={`https://${contractDefinition.network}.voyager.online/contract/${
-            contractDefinition.address.startsWith('0x0')
-              ? contractDefinition.address
-              : '0x0' + contractDefinition.address.slice(2)
-          }`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline"
-        >
-          {contractDefinition.address}
-        </a>
-      </p>
-      <p className="mb-2">Network: {contractDefinition.network}</p>
-      <p>
-        Connected to wallet:{' '}
-        {userContext.address
-          ? `${userContext.address.substring(0, 4)}...${userContext.address.substring(
-              userContext.address.length - 4
-            )}`
-          : 'Not connected'}
-      </p>
-    </div>
+      {/* Contract and network info */}
+      <div className="bg-gray-100 p-4 rounded-lg mb-4">
+        <p className="mb-2">
+          Contract Address:{" "}
+          <a
+            href={`https://${
+              contractDefinition.network
+            }.voyager.online/contract/${
+              contractDefinition.address.startsWith("0x0")
+                ? contractDefinition.address
+                : "0x0" + contractDefinition.address.slice(2)
+            }`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            {contractDefinition.address}
+          </a>
+        </p>
+        <p className="mb-2">Network: {contractDefinition.network}</p>
+        <p>
+          Connected to wallet:{" "}
+          {userContext.address
+            ? `${userContext.address.substring(
+                0,
+                4
+              )}...${userContext.address.substring(
+                userContext.address.length - 4
+              )}`
+            : "Not connected"}
+        </p>
+      </div>
       {contractDefinition.abi
         .filter((item) => item.type === "interface")
         .flatMap((interfaceItem) => interfaceItem.items)
         .filter((item) => item.type === "function")
         .map((functionItem) => (
-          <div key={functionItem.name} style={{ display: 'flex',justifyContent: 'space-between', gap: '5px', flexDirection: 'column' }}>
-<h3>{functionItem.name}</h3>
+          <div
+            key={functionItem.name}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: "5px",
+              flexDirection: "column",
+            }}
+          >
+            <h3>{functionItem.name}</h3>
             {functionItem.inputs.map((input) => (
               <div key={input.name}>
-                <h3 htmlFor={input.name} className="badge-ghost badge">{input.name}</h3>
+                <h3 htmlFor={input.name} className="badge-ghost badge">
+                  {input.name}
+                </h3>
 
                 <TextField.Input
                   type="text"
@@ -165,7 +186,44 @@ const ContractPlayground = ({ contractDefinition }) => {
                 />
               </div>
             ))}
-              <Button className= "btn-sm bg-primary flex space-x-4" onClick={() => handleFunctionCall(functionItem.name)}>{functionItem.inputs == 0 ? "Consult" : "Transact"}</Button>
+            <Button
+              className="btn-sm bg-primary flex space-x-4"
+              onClick={() => handleFunctionCall(functionItem.name)}
+            >
+              {functionItem.inputs == 0 ? "Consult" : "Transact"}
+            </Button>
+            {lastConsultResponse &&
+              functionItem.name == lastConsultResponse.functionName && (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <svg
+                    strokeWidth="2px"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    role="img"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    className="sc-iGgWBj Ixkvr"
+                  >
+                    <path
+                      d="M15 10L20 15L15 20"
+                      stroke="#4B4B4B"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                    <path
+                      d="M4 4V11C4 12.0609 4.42143 13.0783 5.17157 13.8284C5.92172 14.5786 6.93913 15 8 15H20"
+                      stroke="#4B4B4B"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </svg>
+                  <div>{String(lastConsultResponse.result)}</div>
+                </div>
+              )}
           </div>
         ))}
     </div>

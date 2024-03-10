@@ -12,6 +12,7 @@
     "scripts": {
         "chain": "yarn workspace @ss-2/backend chain",
         "cargo-chain": "chmod +x ./cargo-devnet.sh && ./cargo-devnet.sh",
+        "deploy": "yarn workspace @ss-2/backend deploy",
         "goerli-deploy": "yarn workspace @ss-2/backend goerli-deploy",
         "devnet-deploy": "yarn workspace @ss-2/backend devnet-deploy",
         "start": "yarn workspace @ss-2/nextjs dev"

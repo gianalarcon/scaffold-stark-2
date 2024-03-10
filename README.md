@@ -26,10 +26,10 @@ chmod +x install-scarb.sh
 3. Deploy the sample contract:
 
 ```bash
-yarn deploy
+yarn goerli-deploy
 ```
 
-This command deploys a sample smart contract to the local network. The `contract` is located in `packages/backend/src` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/backend/scripts_js/deploy` to deploy the contract to the network. You can also customize the deploy script.
+This command deploys a sample smart contract to the local network. The `contract` is located in `packages/backend/src` and can be modified to suit your needs. The `yarn goerli-deploy` command uses the deploy script located in `packages/backend/scripts_js/deploy` to deploy the contract to the network. You can also customize the deploy script.
 
 4. On a second terminal, start your NextJS app:
 
